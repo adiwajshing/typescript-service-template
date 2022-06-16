@@ -1,0 +1,5 @@
+{
+    "npmName": "@adiwajshing/typescript-service-client",
+    "legacyDiscriminatorBehavior": false,
+    "useSingleRequestParameter": true
+}

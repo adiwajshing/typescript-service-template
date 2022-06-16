@@ -1,0 +1,121 @@
+openapi: 3.0.1
+info:
+  title: Typescript Service
+  version: 1.0.0
+  description: Template for writing a service
+paths:
+  /users:
+    post:
+      operationId: usersPost
+      tags:
+        - Users
+      summary: Create a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        200:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    get:
+      operationId: usersGet
+      tags:
+        - Users
+      summary: Get the list of all users
+      parameters:
+        - name: q
+          in: query
+          description: Search for users by name
+          schema:
+            type: string
+            maxLength: 100
+        - name: id
+          in: query
+          description: Fetch users by ID
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserID'
+        - name: count
+          in: query
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+        - name: page
+          in: query
+          description: Fetch users before this cursor
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                required:
+                  - users
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  nextPageCursor:
+                    type: string
+                    description: Use to fetch the next page
+components:
+  schemas:
+    UserCreate:
+      type: object
+      required:
+        - name
+        - age
+      properties:
+        name:
+          type: string
+          description: Name of the user
+          example: Jack Daniels
+          maxLength: 200
+        age:
+          type: integer
+          description: Age of user
+          minimum: 0
+          maximum: 150
+    User:
+      type: object
+      additionalProperties: false
+      allOf:
+        - type: object
+          required:
+            - id
+            - createdAt
+            - updatedAt
+          properties:
+            id:
+              $ref: '#/components/schemas/UserID'
+            createdAt:
+              $ref: '#/components/schemas/Timestamp'
+            updatedAt:
+              $ref: '#/components/schemas/Timestamp'
+        - $ref: '#/components/schemas/UserCreate'
+    Timestamp:
+      type: string
+      format: date-time
+      description: An ISO formatted Timestamp
+    UserID:
+      type: string
+      description: Unique identifier for a user
+      minLength: 8
+      maxLength: 64
+  securitySchemes:
+    token:
+      type: bearer
+      in: header
+

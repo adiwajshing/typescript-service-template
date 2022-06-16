@@ -1,0 +1,46 @@
+service: typescript-service-template
+
+frameworkVersion: "3"
+# loads params from the ".env" file
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: v0
+  # Deploy this to the "Mumbai" region -- change this to your region if you want
+  region: ap-south-1
+  apiName: ${self:service}
+  # versioning functions stores every version of the code on AWS 
+  # we don't need that, so we disable it
+  versionFunctions: false
+  # how much memory to allocate for each execution of the function
+  memorySize: 256
+  # use the new ARM 64 processors from AWS
+  architecture: arm64
+
+# describe which functions are available to AWS lambda
+functions:
+  api:
+    handler: src/functions/api.handler
+    # Times the request out after 10s
+    timeout: 10
+    # limit to 5 concurrent executions of the function
+    # increase this to whatever suits your needs (or set to "null" for practically infinite concurrency)
+    reservedConcurrency: 5
+    events:
+      # an HTTP request will trigger this request
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+          
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+# include the OpenAPI spec as "openapi-backend" will use it for request validation & generating the routes
+package:
+  include:
+    - openapi.yaml

@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "allowJs": true,
+    "checkJs": false,
+    "outDir": ".build",
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": false,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": [ "ES2020", "DOM" ],
+    "useUnknownInCatchVariables": false
+  },
+  "include": [
+    "src/*.ts", 
+    "src/*/*.ts"
+  ],
+  "exclude": [
+    "node_modules", 
+    "src/tests"
+  ]
+}
