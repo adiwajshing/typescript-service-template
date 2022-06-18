@@ -1,7 +1,5 @@
-import env from './env'
-env()
-
 import mongoose, { connect, set } from 'mongoose'
+import './env'
 import logger from './logger'
 
 let mongo: Promise<typeof mongoose>

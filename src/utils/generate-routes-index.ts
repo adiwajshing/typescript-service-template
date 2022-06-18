@@ -19,7 +19,7 @@ const readdirRecursive = async(dir: string): Promise<string[]> => {
 }
 
 /**
- * Generates the index file at src/routes 
+ * Generates the index file at src/routes
  * The index file contains a route map used by the `make-api` utility
  * the map helps the `make-api` utility map each route's handler correctly
  */
@@ -35,9 +35,9 @@ const generateRoutesIndex = async() => {
 			indexTs += `\t${camelize(name)}: async() => (await import('${file}')).default,\n`
 		}
 	}
-	
+
 	indexTs += '}'
-	
+
 	await writeFile(join(ROUTES_FOLDER, 'index.ts'), indexTs)
 	console.log('updated routes')
 }

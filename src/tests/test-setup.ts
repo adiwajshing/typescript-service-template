@@ -1,9 +1,9 @@
-import env from '../utils/env'
-env()
+// eslint-disable-next-line simple-import-sort/imports
+import '../utils/env'
 
 import { Application } from 'express'
-import makeTestServer from './make-test-server'
 import getConnection from '../utils/get-connection'
+import makeTestServer from './make-test-server'
 
 export const describeWithApp = (
 	name: string,

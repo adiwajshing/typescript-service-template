@@ -1,5 +1,5 @@
-import configEnv from '../utils/env'
-configEnv()
+// eslint-disable-next-line simple-import-sort/imports
+import '../utils/env'
 
 import { APIGatewayProxyEvent, Context } from 'aws-lambda'
 import ROUTES from '../routes'

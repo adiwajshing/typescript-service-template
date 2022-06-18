@@ -116,6 +116,6 @@ components:
       maxLength: 64
   securitySchemes:
     token:
-      type: bearer
-      in: header
-
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -10,7 +10,7 @@ import MAIN_LOGGER from './logger'
 
 const DEFAULT_AUTH_SCHEME = 'token'
 
-// a default health check route that always returns 200 
+// a default health check route that always returns 200
 // if the server is running
 const HEALTH_CHECK_ROUTE = '/health-check'
 
@@ -90,7 +90,6 @@ function errorHandlingWrap<O extends Operation>(getHandler: GetHandler<O>): APIH
 			if(!!query[key] && Array.isArray(query[key]) && query[key]?.length === 1) {
 				query[key] = query[key]![0]
 			}
-
 		})
 
 		const fullRequest = { // combine all params
@@ -128,7 +127,7 @@ function errorHandlingWrap<O extends Operation>(getHandler: GetHandler<O>): APIH
 		} catch(error) {
 			let errorDescription: string
 			let data: any
-			
+
 			trace = error.stack
 			if(error instanceof Boom) {
 				errorDescription = error.message
@@ -177,8 +176,8 @@ function errorHandlingWrap<O extends Operation>(getHandler: GetHandler<O>): APIH
 
 export default async(definition: string, routes: { [O in Operation]: GetHandler<O> }) => {
 	// create api with your definition file or object
-	const api = new OpenAPIBackend({ 
-		definition, 
+	const api = new OpenAPIBackend({
+		definition,
 		customizeAjv: ajv => addFormats(ajv),
 		quick: process.env.NODE_ENV === 'production',
 	})
@@ -237,20 +236,12 @@ export default async(definition: string, routes: { [O in Operation]: GetHandler<
 				// @ts-expect-error
 				dict[key] = errorHandlingWrap(routes[key])
 				return dict
-			}, 
+			},
 			{ } as { [_: string]: APIHandler }
 		)
 	})
 
 	// initialize the backend
-	const [result] = await Promise.all(
-		[
-			api.init(),
-			// import the tracing module
-			// so any requests made are properly traced
-			import('./tracing')
-		]
-	)
-
+	const result = await api.init()
 	return result
 }

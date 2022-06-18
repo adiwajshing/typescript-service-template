@@ -1,9 +1,9 @@
-import { describeWithApp } from "./test-setup"
+import { Chance } from 'chance'
+import { randomBytes } from 'crypto'
 import request from 'supertest'
-import { Response } from "../utils/make-api"
-import { Chance } from "chance"
-import { IUser } from "../types"
-import { randomBytes } from "crypto"
+import { IUser } from '../types'
+import { Response } from '../utils/make-api'
+import { describeWithApp } from './test-setup'
 
 const chance = new Chance()
 
@@ -36,7 +36,7 @@ describeWithApp('User Tests', app => {
 				age: chance.integer({ min: 0, max: 150 })
 			})
 			.expect(200)
-		
+
 		const { users }: Response<'usersGet'> = await request(app)
 			.get('/users')
 			.query({ q: searchString })
@@ -81,6 +81,7 @@ describeWithApp('User Tests', app => {
 				// if there is another page afterwards
 				expect(users).toHaveLength(15)
 			}
+
 			// add to our total list
 			usersFetched.push(...users)
 

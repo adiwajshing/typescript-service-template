@@ -1,6 +1,6 @@
-import { FilterQuery } from "mongoose";
-import { User } from "../entity";
-import { Handler } from "../utils/make-api";
+import { FilterQuery } from 'mongoose'
+import { User } from '../entity'
+import { Handler } from '../utils/make-api'
 
 const usersGet: Handler<'usersGet'> = async(
 	{ id, count, q, page }
@@ -14,6 +14,7 @@ const usersGet: Handler<'usersGet'> = async(
 	if(page) {
 		filter._id = { $lt: page }
 	}
+
 	if(q) {
 		filter.name = { $regex: q }
 	}
