@@ -13,6 +13,7 @@
 2. [Serverless](https://www.serverless.com) -- framework to run auto-scaling code in the cloud without a running server
 	- Deploys to API Gateway + Lambda on AWS
 	- Azura functions
+3. [OpenAPI/Swagger](https://swagger.io/specification/) -- Industry standard specification to document APIs in a machine & human readable way, which can then be used to generate code for the client & server. Online editor for OpenAPI docs [here](https://editor.swagger.io)
 3. [OpenAPI Backend](https://www.npmjs.com/package/openapi-backend) -- framework that generates route listeners, and request (and optionally response) validation from an OpenAPI file
 4. [OpenAPI Typescript](https://www.npmjs.com/package/openapi-typescript) -- Framework that generates types for all schemas and routes from an OpenAPI spec
 5. [Pino](https://www.npmjs.com/package/pino) -- A really great JSON logger, capable of generating child loggers for specific contexts
@@ -127,6 +128,7 @@ This template could be used to write a monolith backend or build multiple micros
 
 ## General
 
-1. the "get users" route in this sample uses cursor based pagination over general offset based pagination, this choise is made primarily for efficiency -- though there are other advantages too. Cursor based pagination offers practically constant time fetch for all pages (provided your cursor and corresponding indexes are setup correctly)
+1. The "get users" route in this sample uses cursor based pagination over general offset based pagination, this choise is made primarily for efficiency -- though there are other advantages too. Cursor based pagination offers practically constant time fetch for all pages (provided your cursor and corresponding indexes are setup correctly)
 	- [Good read](https://betterprogramming.pub/building-apis-a-comparison-between-cursor-and-offset-pagination-88261e3885f8)
 	- Read on the caveats when implementing [this](https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32)
+2. All commits made to the repo are in the conventional commits format -- which is a great way to format your commits to prepare some workflows & ensure the entire team's commits appear uniform. Read more about the convention [here](https://www.conventionalcommits.org/en/v1.0.0/)
