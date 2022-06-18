@@ -22,7 +22,16 @@ const makeAndGetUsers = async() => {
 			age: chance.age()
 		}
 	})
+
 	console.log('made user ', data)
+
+	await api.usersPatch({
+		id: [data.id],
+		userEdit: {
+			name: chance.name()
+		}
+	})
+	console.log('updated user')
 
 	const { data: users } = await api.usersGet({ count: 10 })
 	console.log(`got ${users.users.length} users`)

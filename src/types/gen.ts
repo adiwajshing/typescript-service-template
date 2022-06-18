@@ -7,6 +7,7 @@ export interface paths {
   "/users": {
     get: operations["usersGet"];
     post: operations["usersPost"];
+    patch: operations["usersPatch"];
   };
 }
 
@@ -20,6 +21,15 @@ export interface components {
       name: string;
       /** @description Age of user */
       age: number;
+    };
+    UserEdit: {
+      /**
+       * @description Name of the user
+       * @example Jack Daniels
+       */
+      name?: string;
+      /** @description Age of user */
+      age?: number;
     };
     User: {
       id: components["schemas"]["UserID"];
@@ -74,6 +84,29 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["UserCreate"];
+      };
+    };
+  };
+  usersPatch: {
+    parameters: {
+      query: {
+        /** Edit these specific users */
+        id: components["schemas"]["UserID"][];
+      };
+    };
+    responses: {
+      /** Created */
+      200: {
+        content: {
+          "application/json": {
+            usersAffected: number;
+          };
+        };
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserEdit"];
       };
     };
   };

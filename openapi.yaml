@@ -5,6 +5,37 @@ info:
   description: Template for writing a service
 paths:
   /users:
+    patch:
+      operationId: usersPatch
+      tags:
+        - Users
+      summary: Edit users
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Edit these specific users
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserID'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserEdit'
+      responses:
+        200:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - usersAffected
+                properties:
+                  usersAffected:
+                    type: integer
     post:
       operationId: usersPost
       tags:
@@ -77,6 +108,19 @@ components:
       required:
         - name
         - age
+      properties:
+        name:
+          type: string
+          description: Name of the user
+          example: Jack Daniels
+          maxLength: 200
+        age:
+          type: integer
+          description: Age of user
+          minimum: 0
+          maximum: 150
+    UserEdit:
+      type: object
       properties:
         name:
           type: string

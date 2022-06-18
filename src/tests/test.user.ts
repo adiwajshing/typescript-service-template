@@ -90,4 +90,37 @@ describeWithApp('User Tests', app => {
 
 		expect(usersFetched).toHaveLength(TOTAL_USERS)
 	})
+
+	it('should modify a user correctly', async() => {
+		const createReq = {
+			name: chance.name(),
+			age: chance.integer({ min: 0, max: 150 })
+		}
+		const updateReq = {
+			name: chance.name()
+		}
+		const response = await request(app)
+			.post('/users')
+			.send(createReq)
+			.expect(200)
+			.then(res => res.body as Response<'usersPost'>)
+
+		await request(app)
+			.patch('/users')
+			.query({ id: response.id })
+			.send(updateReq)
+			.expect(200)
+			.then(res => {
+				const body = res.body as Response<'usersPatch'>
+				expect(body.usersAffected).toEqual(1)
+			})
+		const { users }: Response<'usersGet'> = await request(app)
+			.get('/users')
+			.query({ id: response.id })
+			.expect(200)
+			.then(res => res.body)
+
+		expect(users[0].id).toEqual(response.id)
+		expect(users[0].name).toEqual(updateReq.name)
+	})
 })
