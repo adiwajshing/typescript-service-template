@@ -21,6 +21,7 @@
 8. [Boom](https://www.npmjs.com/package/@hapi/boom) -- A great tiny library that enable us to throw Errors with enough information to transform them to valid HTTP responses. Helps us write nice functional code where we don't worry about returning an express response or such
 9. [GitHub Actions](https://github.com/features/actions) -- Great, simple tool to write automated workflows
 10. [Docker](https://www.docker.com) -- Optional, but great way to run containerized applications. Containerized apps help your code run the same way across different deployments on various platforms, reducing the probability of unexpected bugs, makes pipelines more efficent & some other great advantages
+11. [Chance](https://chancejs.com) -- A great tool to generate different sorts of random data (names, phone numbers, urls etc), very useful when creating tests
 
 ## Setup
 
